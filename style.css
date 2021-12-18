@@ -5,45 +5,73 @@
 }
 
 #game {
-    width: 500px;
-    height: 200px;
+    width: 1000px;
+    height: 300px;
     border: 1px solid black;
 
 }
 
 #hero {
-    width: 20px;
-    height: 50px;
-    background-color: red;
+    width: 146px;
+    height: 200px;
+    background-image: url(./img/bubbles.png);
+    background-size: cover;
+    /* background-color: red; */
     position: relative;
-    top: 150px;
-    left: 10px;
-    
+    top: 100px;
+    left: 0px;
 }
+
+
 
 .animate {
-    animation: jump 500ms;
+    animation: duck 5000ms;
 }
 
-@keyframes jump {
-    0%{top: 150px;}
-    40%{top: 80px;}
-    60%{top: 80px;}
-    100%{top: 150px;}
+@keyframes duck {
+    0%{top: 100px;}
+    40%{top: 200px;}
+    80%{top: 200px;}
+    100%{top: 100px;}
+}
+
+.takecover{
+    width: 100px !important;
+    height: 100px !important;
+    background-image: url(./img/cover.jpg) !important;
+    background-size: cover;
+    /* background-color: red; */
+    position: relative;
+    top: 100px;
+    left: 0px;
 }
 
 #enemy {
-    width: 20px;
-    height: 20px;
-    background-color: blue;
+    width: 275px;
+    height: 200px;
+    
+    background-image: url(./img/flint.png);
+    background-size: cover;
+    /* background-color: red; */
     position: relative;
-    top: 130px;
-    left: 480px;
-    animation: enemy 1s infinite linear;
+    top: -120px;
+    left: 720px;
 }
 
-@keyframes enemy {
-    0%{left:480px;}
+#bullet {
+    width: 34px;
+    height: 20px;
+    background-image: url(./img/bullet.png);
+    background-size: cover;
+    background-color: blue;
+    position: relative;
+    top: 20px;
+    left: 700px;
+    animation: bullet 20s infinite linear;
+}
+
+@keyframes bullet {
+    0%{left:700px;}
     100%{left:-40px;}
 }
 

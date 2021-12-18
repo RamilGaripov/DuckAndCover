@@ -1,23 +1,25 @@
 var hero = document.getElementById("hero");
-var enemy = document.getElementById("enemy");
+var bullet = document.getElementById("bullet");
 
 function jump() {
   if (hero.classList != "animate") {
     hero.classList.add("animate");
+    hero.classList.add("takecover");
     setTimeout(function () {
       hero.classList.remove("animate");
-    }, 500);
+      hero.classList.remove("takecover");
+    }, 5000);
   }
 }
 
 var checkDead = setInterval(function(){
     var heroTop = 
     parseInt(window.getComputedStyle(hero).getPropertyValue("top"));
-    var enemyLeft = 
-    parseInt(window.getComputedStyle(enemy).getPropertyValue("left"));
-    if(enemyLeft<25 && enemyLeft>5 && heroTop>=130){
+    var bulletLeft = 
+    parseInt(window.getComputedStyle(bullet).getPropertyValue("left"));
+    if(bulletLeft<100 && bulletLeft>5 && heroTop<=100){
         alert("u lose.");
-        enemy.style.animation = "none";
+        bullet.style.animation = "none";
         block.style.display = "none";
         
     }
