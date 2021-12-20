@@ -4,6 +4,12 @@
     box-sizing: border-box;
 }
 
+#score {
+    width: 150px;
+    height: 50px;
+    border: solid black 3px;
+}
+
 #game {
     width: 1000px;
     height: 300px;
@@ -22,17 +28,15 @@
     left: 0px;
 }
 
-
-
 .animate {
-    animation: duck 5000ms;
+    animation: duck 500ms;
 }
 
 @keyframes duck {
     0%{top: 100px;}
     40%{top: 200px;}
     80%{top: 200px;}
-    100%{top: 100px;}
+    100%{top: 150px;}
 }
 
 .takecover{
@@ -67,7 +71,19 @@
     position: relative;
     top: 20px;
     left: 700px;
-    animation: bullet 20s infinite linear;
+   
+}
+
+.shoot {
+     animation: bullet 0.7s linear;
+}
+
+.adjustEnemy {
+    top: -20px !important;
+}
+
+.adjustBullet {
+    top: 120px !important;
 }
 
 @keyframes bullet {
