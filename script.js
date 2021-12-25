@@ -1,74 +1,114 @@
-var hero = document.getElementById("hero");
-var bullet = document.getElementById("bullet");
+const canvas = document.querySelector("canvas");
 
-var score = document.getElementById("score");
-i = 0;
-function duck() {
-  if (hero.classList != "animate") {
-    hero.classList.add("animate");
-    hero.classList.add("takecover");
-    enemy.classList.add("adjustEnemy");
-    bullet.classList.add("adjustBullet");
-    
-    setTimeout(function () {
-      hero.classList.remove("animate");
-      hero.classList.remove("takecover");
-      enemy.classList.remove("adjustEnemy");
-      bullet.classList.remove("adjustBullet");
-    }, 500);
-  }
-}
+const ctx = canvas.getContext("2d");
+canvas.width = 1000;
+canvas.height = 400;
+
+let frame = 0;
+let gamespeed = 2;
+let spacePressed = false;
 
 
-window.addEventListener("keydown", checkTriggerPull, false);
+const keys = [];
 
-function reloadSpeed () {
-  var speed = Math.random()*1000 + 700;
-  console.log(speed);
-  return speed;
-  
-}; 
-
-
-// x = 1000;
-setInterval(shoot, reloadSpeed());
-
-function shoot() {
-  
-  if (bullet.classList != "shoot") {
-    var rand = Math.round(Math.random() + (1700 - 700)) + 700;
-    bullet.classList.add("shoot");
-
-    setTimeout(function () {
-      bullet.classList.remove("shoot");
-    }, rand);
-    i++;
-  }
-
-}
-function checkTriggerPull(key){
-  if (key.keyCode == "49") {
-    shoot();
-  }
-}
-
-
-var checkDead = setInterval(function(){
-    var heroTop = 
-    parseInt(window.getComputedStyle(hero).getPropertyValue("top"));
-    var bulletLeft = 
-    parseInt(window.getComputedStyle(bullet).getPropertyValue("left"));
-    if(bulletLeft<100 && bulletLeft>5 && heroTop<=100){
-        alert(`Right in your turtle heart! Your score is: ${i}`);
-        bullet.style.animation = "none";
-        block.style.display = "none";
-        
-    } else {
-      score.innerHTML = `Score: ${i}`
-    }
-}, 10);
-
-
-document.getElementById("restart").onclick = function restart() {
-    location.href = "/";
+const player = {
+    x: 20,
+    y: 90,
+    width: 175,
+    height: 310,
+    frameX: 0,
+    frameY: 0,
+    hitbox: true
+    // moving: false
 };
+
+const playerSprite = new Image();
+playerSprite.src = "./img/bubbles.png";
+
+const background = new Image();
+background.src = "./img/background.png";
+
+function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
+    ctx.fillStyle = "rgba(255, 0, 0, 0.3)";
+    ctx.fillRect(player.x, player.y, player.width, player.height);
+    ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
+}
+
+window.addEventListener("keydown", function(e){
+    if (e.code === 'Space') spacePressed = true;
+    player.y += 200;
+
+});
+
+window.addEventListener("keyup", function(e){
+    if (e.code === 'Space') spacePressed = false;
+    player.y -= 200;
+});
+
+
+// window.addEventListener("keydown", function(e){
+//     keys[e.keyCode] = true;
+//     player.moving = true;
+// });
+
+// window.addEventListener("keyup", function(e){
+//     delete keys[e.keyCode];
+//     player.moving = false;
+// });
+function takeCover() {
+    player.hitbox = false;
+    if (player.frameX < 4){
+       
+        player.frameX++;
+        requestAnimationFrame(takeCover);
+    } 
+}
+// // const timeout;
+// function setter() {
+//     setInterval(exitCover, 2000);
+// }
+// function timeExit() {
+//     setter();
+//     // timeout = setInterval(exitCover, 2000);
+// }
+
+function exitCover() {
+    if (player.frameX >= 4 && player.frameX < 8) {
+        player.frameX++;
+    } else if (player.frameX == 8) {
+        player.frameX = 0;
+        player.hitbox = true;
+        // clearInterval(timeout);
+    }
+}
+
+let fps, fpsInterval, startTime, now, then, elapsed;
+
+function onLoad() {
+    requestAnimationFrame(onLoad);
+    ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+    drawSprite(playerSprite, player.width * player.frameX, player.height * player.frameY, player.width, player.height, player.x, player.y, player.width, player.height);
+}
+
+function startAnimating(fps){
+    fpsInterval = 1000/fps;
+    then = Date.now();
+    startTime = then;
+    animate();
+}
+function animate() {
+    now = Date.now();
+    elapsed = now - then;
+    if (elapsed > fpsInterval) {
+        then = now - (elapsed % fpsInterval);
+        // takeCover();
+        exitCover();
+        // takeCover();
+        // console.log(now);
+        
+    }
+    requestAnimationFrame(animate);
+}
+onLoad();
+startAnimating(24);
+
