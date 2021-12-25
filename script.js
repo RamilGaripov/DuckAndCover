@@ -5,6 +5,7 @@ canvas.width = 1000;
 canvas.height = 400;
 
 let frame = 0;
+let forExit = 0;
 let gamespeed = 2;
 let spacePressed = false;
 
@@ -36,48 +37,27 @@ function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
 
 window.addEventListener("keydown", function(e){
     if (e.code === 'Space') spacePressed = true;
-    player.y += 200;
 
 });
 
-window.addEventListener("keyup", function(e){
-    if (e.code === 'Space') spacePressed = false;
-    player.y -= 200;
-});
-
-
-// window.addEventListener("keydown", function(e){
-//     keys[e.keyCode] = true;
-//     player.moving = true;
-// });
-
-// window.addEventListener("keyup", function(e){
-//     delete keys[e.keyCode];
-//     player.moving = false;
-// });
 function takeCover() {
-    player.hitbox = false;
-    if (player.frameX < 4){
+    player.hitbox = false; 
+    if (spacePressed && frame%3 === 0 && player.frameX < 4){
        
         player.frameX++;
         requestAnimationFrame(takeCover);
+        forExit = frame;
     } 
 }
-// // const timeout;
-// function setter() {
-//     setInterval(exitCover, 2000);
-// }
-// function timeExit() {
-//     setter();
-//     // timeout = setInterval(exitCover, 2000);
-// }
 
 function exitCover() {
-    if (player.frameX >= 4 && player.frameX < 8) {
+    if (player.frameX >= 4 && frame-forExit > 30 && frame%5 === 0 && player.frameX < 8) {
         player.frameX++;
+        requestAnimationFrame(takeCover);
     } else if (player.frameX == 8) {
         player.frameX = 0;
         player.hitbox = true;
+        spacePressed = false;
         // clearInterval(timeout);
     }
 }
@@ -100,14 +80,13 @@ function animate() {
     now = Date.now();
     elapsed = now - then;
     if (elapsed > fpsInterval) {
-        then = now - (elapsed % fpsInterval);
-        // takeCover();
-        exitCover();
-        // takeCover();
-        // console.log(now);
-        
+        then = now - (elapsed % fpsInterval);        
     }
+    takeCover();
+    exitCover();
     requestAnimationFrame(animate);
+    frame++;
+    // console.log(forExit);
 }
 onLoad();
 startAnimating(24);
