@@ -13,7 +13,7 @@ const keys = [];
 
 const player = {
     x: 20,
-    y: 90,
+    y: 100,
     width: 175,
     height: 310,
     frameX: 0,
@@ -49,7 +49,7 @@ function takeCover() {
 }
 
 function exitCover() {
-    if (player.frameX >= 4 && frame-forExit > 20 && frame%4 === 0 && player.frameX < 8) {
+    if (player.frameX >= 4 && frame-forExit > 20 && frame%2 === 0 && player.frameX < 8) {
         player.frameX++;
         requestAnimationFrame(takeCover);
     } else if (player.frameX == 8) {
@@ -68,36 +68,49 @@ function onLoad() {
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
     drawSprite(playerSprite, player.width * player.frameX, player.height * player.frameY, player.width, player.height, player.x, player.y, player.width, player.height);
     drawEnemy(enemySprite, enemy.width * enemy.frameX, enemy.height * enemy.frameY, enemy.width, enemy.height, enemy.x, enemy.y, enemy.width, enemy.height);
-    drawBullet(bulletSprite, bullet.width * bullet.frameX, bullet.height * bullet.frameY, bullet.width*0.5, bullet.height*0.5, bullet.x, bullet.y, bullet.width, bullet.height);
+    // drawBullet(bulletSprite, bullet.width * bullet.frameX, bullet.height * bullet.frameY, bullet.width*0.5, bullet.height*0.5, bullet.x, bullet.y, bullet.width, bullet.height);
+    // drawBullet();
     
 }
 
-function startAnimating(fps){
-    fpsInterval = 1000/fps;
-    then = Date.now();
-    startTime = then;
-    animate();
-}
+// function startAnimating(fps){
+//     fpsInterval = 1000/fps;
+//     then = Date.now();
+//     startTime = then;
+//     animate();
+// }
 
-let position = 0;
+// let position = 0;
 function animate() {
-    now = Date.now();
-    elapsed = now - then;
-    if (elapsed > fpsInterval) {
-        then = now - (elapsed % fpsInterval);        
-    }
-    // if (frame %% 200 === 0) {
-        drawBullet(bulletSprite, bullet.width * bullet.frameX, bullet.height * bullet.frameY, bullet.width*0.5, bullet.height*0.5, bullet.x - this.speed*frame, bullet.y, bullet.width, bullet.height);
+    // now = Date.now();
+    // elapsed = now - then;
+    // if (elapsed > fpsInterval) {
+    //     then = now - (elapsed % fpsInterval);        
     // }
-
+    frame++;
+    // let reloadSpeed = Math.floor(Math.random()*200 + 50);
+    // if (frame%20 === 0)
+    
+    // console.log(reloadSpeed);
+    // if (frame-reloadSpeed === 0)
+    shootBullets();
+    // console.log(frame);
+    
+    // if (frame === 100) {
+    //     console.log("i shoot");
+    //     shootBullet();
+    //     // drawBullet(bulletSprite, bullet.width * bullet.frameX, bullet.height * bullet.frameY, bullet.width*0.5, bullet.height*0.5, bullet.x - bullet.speed*frame, bullet.y, bullet.width, bullet.height);
+    // }
 
     takeCover();
     exitCover();
+    
+    // if ()
+    
     requestAnimationFrame(animate);
-    frame++;
-    // console.log(frame);
 }
 
 onLoad();
-startAnimating(24);
+animate();
+// startAnimating(24);
 
