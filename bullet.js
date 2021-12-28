@@ -8,10 +8,7 @@ class Bullet {
         this.y = 215;
         this.width = 70;
         this.height = 35;
-        
         this.speed = 15;
-       
-        
     };
 
     drawBullet() {

@@ -40,9 +40,9 @@ window.addEventListener("keydown", function(e){
 });
 
 function takeCover() {
-    player.hitbox = false; 
     if (spacePressed && frame%2 === 0 && player.frameX < 4){
         player.frameX++;
+        player.hitbox = false; 
         requestAnimationFrame(takeCover);
         forExit = frame;
     } 
@@ -61,7 +61,19 @@ function exitCover() {
     }
 }
 
-let fps, fpsInterval, startTime, now, then, elapsed;
+function handleInjury() {
+    for (let i = 0; i < bulletArray.length; i++){
+        if (bulletArray[i].x > 50 && bulletArray[i].x < 150 && player.hitbox){
+            // ctx.font = "25px Georgia";
+            // ctx.fillStyle = "black";
+            // ctx.fillText("Right in the heart! Your score is: ");
+            alert("ded");
+            return true;
+        }
+    }
+}
+
+// let fps, fpsInterval, startTime, now, then, elapsed;
 
 function onLoad() {
     requestAnimationFrame(onLoad);
@@ -104,6 +116,8 @@ function animate() {
 
     takeCover();
     exitCover();
+    handleInjury();
+    
     
     // if ()
     
