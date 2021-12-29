@@ -2,28 +2,38 @@ const bulletArray = [];
 
 var speed = 15;
 
+const bulletImg = new Image();
+bulletImg.src = "./img/bullet.png";
+
 class Bullet {
     constructor() {
         this.x = 600;
-        this.y = 215;
-        this.width = 70;
-        this.height = 35;
+        this.y = 220;
+        this.width = 50;
+        this.height = 30;
         this.speed = 15;
+        this.counted = false;
+        
     };
 
     drawBullet() {
-        ctx.fillStyle = "red";
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        // ctx.fillStyle = "red";
+        // ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.drawImage(bulletImg, this.x, this.y, this.width, this.height);
     }
 
     shoot() {
         this.x -= this.speed;
+        if (!this.counted && this.x < player.x) {
+            score++;
+            this.counted = true;
+        }
         this.drawBullet();
         // console.log(nextShot);
     }
 }
 
-let reloadSpeed = Math.floor(Math.random()*200 + 100);
+let reloadSpeed = Math.floor(Math.random()*180 + 70);
 var nextShot = 0;
 
 function shootBullets() {
@@ -32,7 +42,8 @@ function shootBullets() {
         // console.log(reloadSpeed);
         bulletArray.unshift(new Bullet);
         nextShot = frame;
-        reloadSpeed = Math.floor(Math.random()*200 + 100);
+        reloadSpeed = Math.floor(Math.random()*180 + 70);
+        
         // console.log("speed is " + this.speed);
         
         
@@ -61,8 +72,7 @@ function shootBullets() {
 //     // moving: false
 // };
 
-// const bulletSprite = new Image();
-// bulletSprite.src = "./img/bullet.png";
+
 
 // function drawBullet(img, sX, sY, sW, sH, dX, dY, dW, dH) {
 //     // ctx.fillStyle = "rgba(255, 0, 0, 0.3)";

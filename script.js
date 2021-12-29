@@ -8,6 +8,7 @@ let frame = 0;
 let forExit = 0;
 let gamespeed = 2;
 let spacePressed = false;
+let score = 0;
 
 const keys = [];
 
@@ -64,10 +65,18 @@ function exitCover() {
 function handleInjury() {
     for (let i = 0; i < bulletArray.length; i++){
         if (bulletArray[i].x > 50 && bulletArray[i].x < 150 && player.hitbox){
-            // ctx.font = "25px Georgia";
-            // ctx.fillStyle = "black";
-            // ctx.fillText("Right in the heart! Your score is: ");
-            alert("ded");
+            ctx.font = "35px Georgia";
+            ctx.fillStyle = "black";
+            
+            if (score < 5){
+                ctx.fillText("You really are slow as a turtle! Your score is: " + score + ". Try again!", 50, canvas.height/4);
+            } else if (score < 10) {
+                ctx.fillText("Right in your turtle heart! Your score is: " + score + ". Not bad!", 50, canvas.height/4);
+            } else {
+                ctx.fillText("Wow! Your score is: " + score + ". Good turtle!", 50, canvas.height/4);
+            };
+            
+            // alert("ded");
             return true;
         }
     }
@@ -76,55 +85,49 @@ function handleInjury() {
 // let fps, fpsInterval, startTime, now, then, elapsed;
 
 function onLoad() {
-    requestAnimationFrame(onLoad);
+    
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
     drawSprite(playerSprite, player.width * player.frameX, player.height * player.frameY, player.width, player.height, player.x, player.y, player.width, player.height);
     drawEnemy(enemySprite, enemy.width * enemy.frameX, enemy.height * enemy.frameY, enemy.width, enemy.height, enemy.x, enemy.y, enemy.width, enemy.height);
+    if (handleInjury()) return;
+    requestAnimationFrame(onLoad);
     // drawBullet(bulletSprite, bullet.width * bullet.frameX, bullet.height * bullet.frameY, bullet.width*0.5, bullet.height*0.5, bullet.x, bullet.y, bullet.width, bullet.height);
     // drawBullet();
     
 }
 
-// function startAnimating(fps){
-//     fpsInterval = 1000/fps;
-//     then = Date.now();
-//     startTime = then;
-//     animate();
-// }
+const scoreGradient = ctx.createLinearGradient(0, 0, 0, 70);
+scoreGradient.addColorStop("0.4", "#fff");
+// scoreGradient.addColorStop("0.5", "#000");
+scoreGradient.addColorStop("0.6", "#aaffaa");
+scoreGradient.addColorStop("0.7", "#aaffaa");
+scoreGradient.addColorStop("0.9", "#505050");
 
-// let position = 0;
+
 function animate() {
-    // now = Date.now();
-    // elapsed = now - then;
-    // if (elapsed > fpsInterval) {
-    //     then = now - (elapsed % fpsInterval);        
-    // }
     frame++;
-    // let reloadSpeed = Math.floor(Math.random()*200 + 50);
-    // if (frame%20 === 0)
-    
-    // console.log(reloadSpeed);
-    // if (frame-reloadSpeed === 0)
     shootBullets();
-    // console.log(frame);
-    
-    // if (frame === 100) {
-    //     console.log("i shoot");
-    //     shootBullet();
-    //     // drawBullet(bulletSprite, bullet.width * bullet.frameX, bullet.height * bullet.frameY, bullet.width*0.5, bullet.height*0.5, bullet.x - bullet.speed*frame, bullet.y, bullet.width, bullet.height);
-    // }
-
     takeCover();
     exitCover();
+    ctx.fillStyle = scoreGradient;
+    ctx.font = "90px Georgia";
+    
+    ctx.strokeText(score, 450, 70);
+    ctx.fillText(score, 450, 70);
+    
     handleInjury();
-    
-    
-    // if ()
-    
+   
+    if (handleInjury()) return;
     requestAnimationFrame(animate);
+
+    
 }
 
 onLoad();
-animate();
+function startGame() {
+    document.getElementById("startgame").addEventListener("click", animate);
+}
+startGame();
+// animate();
 // startAnimating(24);
 
