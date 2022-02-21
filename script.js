@@ -1,8 +1,9 @@
 const canvas = document.querySelector("canvas");
 
 const ctx = canvas.getContext("2d");
-canvas.width = 1000;
+canvas.width = 1200;
 canvas.height = 400;
+
 
 let frame = 0;
 let forExit = 0;
@@ -10,7 +11,7 @@ let gamespeed = 2;
 let spacePressed = false;
 let score = 0;
 
-const keys = [];
+// const keys = [];
 
 const player = {
     x: 20,
@@ -69,11 +70,11 @@ function handleInjury() {
             ctx.fillStyle = "black";
             
             if (score < 5){
-                ctx.fillText("You really are slow as a turtle! Your score is: " + score + ". Try again!", 50, canvas.height/4);
+                ctx.fillText("You are slow as a turtle! Your score is: " + score + ". Try again!", 50, canvas.height/4);
             } else if (score < 10) {
                 ctx.fillText("Right in your turtle heart! Your score is: " + score + ". Not bad!", 50, canvas.height/4);
             } else {
-                ctx.fillText("Wow! Your score is: " + score + ". Good turtle!", 50, canvas.height/4);
+                ctx.fillText("Wow! Your score is: " + score + ". Ninja turtle!", 50, canvas.height/4);
             };
             
             // alert("ded");
@@ -81,6 +82,12 @@ function handleInjury() {
         }
     }
 }
+
+let startButton = document.createElement("button");
+    startButton.setAttribute("class", "btn btn-info")
+    startButton.setAttribute("id", "startGame")
+    startButton.innerHTML = "Start Game";
+    document.getElementById("startButtonHere").appendChild(startButton);
 
 // let fps, fpsInterval, startTime, now, then, elapsed;
 
@@ -91,6 +98,7 @@ function onLoad() {
     drawEnemy(enemySprite, enemy.width * enemy.frameX, enemy.height * enemy.frameY, enemy.width, enemy.height, enemy.x, enemy.y, enemy.width, enemy.height);
     if (handleInjury()) return;
     requestAnimationFrame(onLoad);
+    
     // drawBullet(bulletSprite, bullet.width * bullet.frameX, bullet.height * bullet.frameY, bullet.width*0.5, bullet.height*0.5, bullet.x, bullet.y, bullet.width, bullet.height);
     // drawBullet();
     
@@ -112,8 +120,8 @@ function animate() {
     ctx.fillStyle = scoreGradient;
     ctx.font = "90px Georgia";
     
-    ctx.strokeText(score, 450, 70);
-    ctx.fillText(score, 450, 70);
+    ctx.strokeText(score, 560, 70);
+    ctx.fillText(score, 560, 70);
     
     handleInjury();
    
@@ -125,7 +133,7 @@ function animate() {
 
 onLoad();
 function startGame() {
-    document.getElementById("startgame").addEventListener("click", animate);
+    document.getElementById("startGame").addEventListener("click", animate);
 }
 startGame();
 // animate();

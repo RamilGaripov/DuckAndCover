@@ -1,10 +1,93 @@
+* {
+    margin: 0;
+    padding: 0;
+
+}
+
+body {
+    height: 100vh;
+    background-image: url(./img/page-bg3.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: rgb(235, 209, 54);
+    text-shadow: rgb(169, 120, 34) 2px 0 5px;
+    text-shadow: rgb(186, 134, 56) 1px 0 10px;
+}
+
+.game {
+    height: 600px;
+}
+
+#title {
+    font-weight: 500;
+}
+
 #canvas1 {
-    width: 1000px;
+    width: 1200px;
     height: 400px;
-    border: 1px solid black;
-    background-color: aquamarine;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -20%);
+}
+
+.logo {
+    display: block;
+    text-align: center;
+}
+
+#obituary {
+    font-size: 2rem;
+}
+
+.title {
+    margin-top: 3rem;
+}
+
+#instructions {
+    font-size: 2rem;
+}
+
+.tribute {
+    display: block;
+    text-align: center;
+}
+
+#tribute {
+    font-size: 1.5rem;
+}
+
+.startGame {
+    display: block;
+    text-align: center;
+    height: 4rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+#startGame {
+    height: 100%;
+    width: 50%;
+    font-size: 1.5rem;
+    background-color: rgb(160, 210, 235);
+    font-weight: 500;
+}
+
+#startGame:hover {
+    background-color: #000;
+    color: rgb(160, 210, 235);
+}
+
+#tribute {
+    color: rgb(160, 210, 235);
+}
+
+#honLink {
+    font-weight: 400;
+    color: rgb(160, 210, 235);
+}
+
+#honLink:hover {
+    color: orange;
+    /* font-weight: 600; */
 }

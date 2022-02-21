@@ -1,5 +1,5 @@
 const enemy = {
-    x: 620,
+    x: 820,
     y: 100,
     width: 344,
     height: 293,
