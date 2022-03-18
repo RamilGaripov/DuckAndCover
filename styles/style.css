@@ -1,12 +1,11 @@
 * {
     margin: 0;
     padding: 0;
-
 }
 
 body {
     height: 100vh;
-    background-image: url(./img/page-bg3.jpg);
+    background-image: url(../img/page-bg3.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     color: rgb(235, 209, 54);
@@ -52,6 +51,10 @@ body {
 .tribute {
     display: block;
     text-align: center;
+    position: absolute;
+    top: 85%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #tribute {
@@ -62,13 +65,18 @@ body {
     display: block;
     text-align: center;
     height: 4rem;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
 }
 
 #startGame {
     height: 100%;
+    min-width: 150px;
     width: 50%;
+    max-width: 300px;
     font-size: 1.5rem;
     background-color: rgb(160, 210, 235);
     font-weight: 500;
@@ -90,5 +98,4 @@ body {
 
 #honLink:hover {
     color: orange;
-    /* font-weight: 600; */
 }
